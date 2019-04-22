@@ -38,3 +38,8 @@ def is_solution(arr_of_queens):
   return True
 
 find_n_queens(8)
+
+# TAKE AWAY
+# This is a brute-force solution because we compute all possible combinations and permutations
+# this algorithm takes too long for large n. Please see n_queens_backtrack.py
+# for an algorithm that is more optimized for this problem
