@@ -1,11 +1,15 @@
 # given an 5 x 5 board, you can place a piece in each box of the grid
 # that diagonals from top left to bottom right, or bottom left to top right
 # can you place fifteen pieces so that none of the pieces diagonals touch each other?
-
+import time
 
 def sixteen_diagonals(perm, piece_count):
   # return if 16 diagonals have been placed
-  if piece_count == 16: 
+  if len(perm) > 25:
+    return
+  if piece_count == 16:
+    end = time.time()
+    print("It took {elapsed} seconds to run this algorithm".format(elapsed=end-start)) 
     print(perm)
     exit()
   if len(perm) > 25 and piece_count < 16:
@@ -80,4 +84,5 @@ def check_conflict(i,j):
   else:
     return False
 
+start = time.time()
 sixteen_diagonals([], 0)
