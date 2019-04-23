@@ -12,7 +12,7 @@ def sixteen_diagonals(perm, piece_count):
     return
 
 
-  for d in range(3): # 0 is empty, 1 is TL to BR, 2 is BL to TR
+  for d in [2, 1, 0]: # 0 is empty, 1 is TL to BR, 2 is BL to TR
 
     # otherwise try adding a diagonal to the board
     # at the next open spot
@@ -30,7 +30,6 @@ def sixteen_diagonals(perm, piece_count):
     perm.pop()
 
 def can_be_extended(perm):
-  print(perm)
   # find the index of the last element
   # look at the indexes of the elements to the diagonal of this element
   # and to the side of it
@@ -49,10 +48,15 @@ def conflict_diagonal(perm):
   if len(perm) > 5:
     if len(perm) % 5 > 1: #don't check TL diagonal for pieces on the left edge of the board
       top_left = perm[last_idx - 6]
-      check_conflict(perm[last_idx], top_left)
+      if perm[last_idx] == top_left:
+        return True # there is a conflict
     elif len(perm) % 5 < 4: #don't check TR diagonal for pieces on the right edge of the board
       top_right = perm[last_idx - 4]
       check_conflict(perm[last_idx], top_right)
+      if perm[last_idx] == top_right:
+        return True
+    else:
+      return False
   
 def conflict_horizontal_or_vertical(perm):
   last_idx = len(perm) - 1
@@ -60,9 +64,14 @@ def conflict_horizontal_or_vertical(perm):
   if len(perm) > 5:
     above = perm[last_idx - 5]
     check_conflict(perm[last_idx], above)
+    if abs(perm[last_idx] - above) == 1 and perm[last_idx] != 0 and above != 0:
+      return True
   elif len(perm) % 5 > 1: #don't check to the left for pieces on the left edge of the board
     left = perm[last_idx - 1]
-    check_conflict(perm[last_idx], left)
+    if abs(perm[last_idx] - left) == 1 and perm[last_idx] != 0 and left != 0:
+      return True
+  else:
+    return False
   
 def check_conflict(i,j):
   difference = abs(i - j)
