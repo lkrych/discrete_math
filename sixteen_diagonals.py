@@ -3,14 +3,13 @@
 # can you place fifteen pieces so that none of the pieces diagonals touch each other?
 
 
-def sixteen_diagonals(perm, count):
+def sixteen_diagonals(perm, piece_count):
   # return if 16 diagonals have been placed
-  if count == 16 and sum(perm) > 16: 
+  if piece_count == 16: 
     print(perm)
     exit()
-  elif count == 16:
-    #exit recursively
-    return perm
+  if len(perm) > 25 and piece_count < 16:
+    return
 
 
   for d in range(3): # 0 is empty, 1 is TL to BR, 2 is BL to TR
@@ -22,12 +21,16 @@ def sixteen_diagonals(perm, count):
 
     #check to see if this board can be extended
     if can_be_extended(perm):
-      sixteen_diagonals(perm, count + 1)
+      if d > 0:
+        sixteen_diagonals(perm, piece_count + 1)
+      else: 
+        sixteen_diagonals(perm, piece_count)
 
     #if not, remove the piece
     perm.pop()
 
 def can_be_extended(perm):
+  print(perm)
   # find the index of the last element
   # look at the indexes of the elements to the diagonal of this element
   # and to the side of it
