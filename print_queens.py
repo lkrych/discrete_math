@@ -7,14 +7,15 @@ diagonal_dict = {
 }
 
 def print_queens(n, board):
-	row = "| "
+	row = "|"
 	for idx, square in enumerate(board):
-		if idx % n == 0:
-			row = row + diagonal_dict[square] + " | \n"
+		if idx % n  == 0 and idx != 1 or idx != 0:
+			row = row + diagonal_dict[square] + "|"
 			print(row)
-			row = "| "
+			row = "|"
 		else:
-			row = row + diagonal_dict[square] + " | "
+			print(idx)
+			row = row + diagonal_dict[square] + "|"
 
 
 print_queens(2, [0, 2, 1, 0])
